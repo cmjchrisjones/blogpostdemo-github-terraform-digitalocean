@@ -24,18 +24,23 @@ jobs:
             os: macos-latest
             target: osx-x64
     runs-on: ${{ matrix.os }}
+    
+    defaults:
+      run:
+        working-directory: DemoRazorApp
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Checkout
+    - uses: actions/checkout@v2
 
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.x
+    - name: Setup dotnet
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
 
-      - name: Build
-        shell: bash
-        run: |
+    - name: Build
+      shell: bash
+      run: |
           tag=$(git describe --tags --abbrev=0)
           release_name="App-$tag-${{ matrix.target }}"
           # Build everything
@@ -49,9 +54,9 @@ jobs:
           fi
           # Delete output directory
           rm -r "$release_name"
-      - name: Publish
-        uses: softprops/action-gh-release@v1
-        with:
-          files: "DemoRazorApp/src/DemoRazorApp*"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish
+      uses: softprops/action-gh-release@v1
+      with:
+        files: "DemoRazorApp/src/DemoRazorApp*"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
