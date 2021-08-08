@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRazorApp", "DemoRazorApp\DemoRazorApp.csproj", "{F9EB0C89-36C3-4EC9-B697-B9B933714821}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorApp", "src\DemoRazorApp\DemoRazorApp.csproj", "{EFE76D1A-065F-4190-9C95-1C51A0760A6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorApp.Tests", "test\DemoRazorApp.Tests\DemoRazorApp.Tests.csproj", "{CEDBED08-8815-4609-8EF0-2A8DE8566B0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F9EB0C89-36C3-4EC9-B697-B9B933714821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9EB0C89-36C3-4EC9-B697-B9B933714821}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9EB0C89-36C3-4EC9-B697-B9B933714821}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9EB0C89-36C3-4EC9-B697-B9B933714821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFE76D1A-065F-4190-9C95-1C51A0760A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE76D1A-065F-4190-9C95-1C51A0760A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE76D1A-065F-4190-9C95-1C51A0760A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE76D1A-065F-4190-9C95-1C51A0760A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEDBED08-8815-4609-8EF0-2A8DE8566B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEDBED08-8815-4609-8EF0-2A8DE8566B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEDBED08-8815-4609-8EF0-2A8DE8566B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEDBED08-8815-4609-8EF0-2A8DE8566B0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

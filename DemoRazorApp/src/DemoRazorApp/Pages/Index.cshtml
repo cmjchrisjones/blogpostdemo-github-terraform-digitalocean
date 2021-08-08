@@ -1,0 +1,17 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div asp-validation-summary=All></div>
+
+<form method="post">
+    <input asp-for="@Model.Location" />
+    <input type="submit" value="Get Weather" />
+</form>
+
+@if (Model.WeatherServiceResponse != null)
+{
+    @: Current Temp: @Model.WeatherServiceResponse.Current.TempC C (@Model.WeatherServiceResponse.Current.TempF F)
+}
