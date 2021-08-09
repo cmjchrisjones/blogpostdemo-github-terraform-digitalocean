@@ -24,6 +24,9 @@ jobs:
             os: macos-latest
             target: osx-x64
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: DemoRazorApp
     
     steps:
       - name: Checkout
