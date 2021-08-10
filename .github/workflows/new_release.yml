@@ -11,7 +11,20 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        kind: ['linux', 'windows', 'macOS']
+        include:
+          - kind: linux
+            os: ubuntu-latest
+            target: linux-x64
+          - kind: windows
+            os: windows-latest
+            target: win-x64
+          - kind: macOS
+            os: macos-latest
+            target: osx-x64
+    runs-on: ${{ matrix.os }}
     
     
     defaults:
@@ -25,20 +38,27 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        
+    - name: Create Env Vars
+      shell: bash
+      run: |
+        # Define some variables for things we need
+        tag=$(git describe --tags --abbrev=0)
+        release_name="DemoRazorApp-$tag-${{ matrix.target }}"
  
     - name: Install dependencies
       run: dotnet restore
       
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --runtime "${{ matrix.target }}" Release --no-restore
       
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish
+      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "$release_name"
 
-    - name: Upload WebApp1 Build Artifact
+    - name: Upload DemoRazorApp Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: DemoRazorApp
