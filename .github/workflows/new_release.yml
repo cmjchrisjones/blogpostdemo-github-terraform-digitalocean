@@ -41,11 +41,7 @@ jobs:
     - name: Upload WebApp1 Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: WebApp1
-        path: /home/runner/work/DemoRazorApp/src/DemoRazorApp/bin/Debug/net5/publish/
+        name: DemoRazorApp
+        path: /home/runner/work/blogpostdemo-github-terraform-digitalocean/blogpostdemo-github-terraform-digitalocean/DemoRazorApp/src/DemoRazorApp/bin/Debug/net5.0/publish/
 
-    - name: Upload WebApp2 Build Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: WebApp2
-        path: /home/runner/work/DemoRazorApp/src/DemoRazorApp/bin/Debug/net5/publish/
+     
