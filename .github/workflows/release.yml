@@ -43,7 +43,7 @@ jobs:
           release_name="DemoRazorApp-$tag-${{ matrix.target }}"
 
           # Build everything
-          dotnet publish /DemoRazorApp/src/DemoRazorApp/DemoRazorApp.csproj --framework net5 --runtime "${{ matrix.target }}" -c Release -o "$release_name"
+          dotnet publish DemoRazorApp/src/DemoRazorApp/DemoRazorApp.csproj --runtime "${{ matrix.target }}" -c Release -o "$release_name"
 
           # Pack files
           if [ "${{ matrix.target }}" == "win-x64" ]; then
