@@ -37,3 +37,15 @@ jobs:
 
     - name: Publish
       run: dotnet publish
+
+    - name: Upload WebApp1 Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: WebApp1
+        path: /home/runner/work/DemoRazorApp/src/DemoRazorApp/bin/Debug/net5/publish/
+
+    - name: Upload WebApp2 Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: WebApp2
+        path: /home/runner/work/DemoRazorApp/src/DemoRazorApp/bin/Debug/net5/publish/
