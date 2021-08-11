@@ -64,7 +64,7 @@ jobs:
     - name: Upload DemoRazorApp Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ env.RELEASE_NAME }}
-        path: ~/${{ env.RELEASE_NAME }}
+        name: DemoRazorApp
+        path: /home/runner/work/blogpostdemo-github-terraform-digitalocean/blogpostdemo-github-terraform-digitalocean/DemoRazorApp/${{ env.RELEASE_NAME }}
 
      
