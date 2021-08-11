@@ -13,17 +13,17 @@ jobs:
 
     strategy:
       matrix:
-        kind: ['linux', 'windows', 'macOS']
+        kind: ['linux'] #, 'windows', 'macOS']
         include:
           - kind: linux
             os: ubuntu-latest
             target: linux-x64
-          - kind: windows
-            os: windows-latest
-            target: win-x64
-          - kind: macOS
-            os: macos-latest
-            target: osx-x64
+          ##- kind: windows
+          ##  os: windows-latest
+          ##  target: win-x64
+          ##- kind: macOS
+          ##  os: macos-latest
+          ##  target: osx-x64
     runs-on: ${{ matrix.os }} 
     
     defaults:
