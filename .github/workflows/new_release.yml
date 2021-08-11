@@ -55,16 +55,16 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
       
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+#    - name: Test
+#      run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "/${{ env.RELEASE_NAME }}"
+      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "~/${{ env.RELEASE_NAME }}"
 
     - name: Upload DemoRazorApp Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: DemoRazorApp
-        path: /${{ env.RELEASE_NAME }}
+        path: ~/${{ env.RELEASE_NAME }}
 
      
