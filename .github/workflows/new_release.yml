@@ -46,7 +46,7 @@ jobs:
         # Define some variables for things we need
         tag=$(git describe --tags --abbrev=0)
         release_name="DemoRazorApp-$tag-${{ matrix.target }}" 
-        echo "RELEASE_NAME=release_name" >> $RELEASE_NAME
+        echo "RELEASE_NAME=$release_name" >> $GITHUB_ENV
         
  
     - name: Install dependencies
