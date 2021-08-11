@@ -59,12 +59,12 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "${{ env.RELEASE_NAME }}"
+      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "${{ env.RELEASE_NAME }}" --verbosity n
 
     - name: Upload DemoRazorApp Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: DemoRazorApp
-        path: /home/runner/work/blogpostdemo-github-terraform-digitalocean/blogpostdemo-github-terraform-digitalocean/DemoRazorApp/${{ env.RELEASE_NAME }}
+        path: DemoRazorApp/${{ env.RELEASE_NAME }}
 
      
