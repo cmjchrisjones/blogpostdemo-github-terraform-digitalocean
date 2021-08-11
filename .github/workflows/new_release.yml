@@ -58,7 +58,7 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "$release_name"
+      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "${release_name}"
 
     - name: Upload DemoRazorApp Build Artifact
       uses: actions/upload-artifact@v2
