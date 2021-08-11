@@ -13,16 +13,16 @@ jobs:
 
     strategy:
       matrix:
-        kind: ['linux'] #, 'windows', 'macOS']
+        kind: ['linux', 'windows', 'macOS']
         include:
           - kind: linux
             os: ubuntu-latest
             target: linux-x64
-          ##- kind: windows
-          ##  os: windows-latest
-          ##  target: win-x64
-          ##- kind: macOS
-          ##  os: macos-latest
+          - kind: windows
+            os: windows-latest
+            target: win-x64
+          - kind: macOS
+            os: macos-latest
           ##  target: osx-x64
     runs-on: ${{ matrix.os }} 
     
@@ -55,11 +55,11 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
       
-#    - name: Test
-#      run: dotnet test --no-restore --verbosity normal
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "${{ env.RELEASE_NAME }}" -v n
+      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "${{ env.RELEASE_NAME }}"
 
     - name: Upload DemoRazorApp Build Artifact
       uses: actions/upload-artifact@v2
