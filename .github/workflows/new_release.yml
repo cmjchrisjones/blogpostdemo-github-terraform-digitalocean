@@ -26,6 +26,9 @@ jobs:
             target: osx-x64
     runs-on: ${{ matrix.os }}
     
+    env:
+      RELEASE_NAME: tbc
+    
     
     defaults:
       run:
@@ -47,6 +50,8 @@ jobs:
         # Define some variables for things we need
         tag=$(git describe --tags --abbrev=0)
         release_name="DemoRazorApp-$tag-${{ matrix.target }}"
+        echo $release_name >> $RELEASE_NAME
+        
  
     - name: Install dependencies
       run: dotnet restore
@@ -58,7 +63,7 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
 
     - name: Publish
-      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "${{ release_name }}"
+      run: dotnet publish --runtime "${{ matrix.target }}" -c Release -o "${{ RELEASE_NAME }}"
 
     - name: Upload DemoRazorApp Build Artifact
       uses: actions/upload-artifact@v2
