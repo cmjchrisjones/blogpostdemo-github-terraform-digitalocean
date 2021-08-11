@@ -64,7 +64,7 @@ jobs:
     - name: Upload DemoRazorApp Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: DemoRazorApp
+        name: ${{ env.RELEASE_NAME }}
         path: ~/${{ env.RELEASE_NAME }}
 
      
