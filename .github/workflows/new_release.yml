@@ -24,11 +24,7 @@ jobs:
           - kind: macOS
             os: macos-latest
             target: osx-x64
-    runs-on: ${{ matrix.os }}
-    
-    env:
-      RELEASE_NAME: tbc
-    
+    runs-on: ${{ matrix.os }} 
     
     defaults:
       run:
