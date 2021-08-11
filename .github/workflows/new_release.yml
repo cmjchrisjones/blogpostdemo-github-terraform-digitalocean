@@ -51,6 +51,7 @@ jobs:
         tag=$(git describe --tags --abbrev=0)
         release_name="DemoRazorApp-$tag-${{ matrix.target }}"
         echo $release_name >> $RELEASE_NAME
+        echo "RELEASE_NAME=release_name" >> $RELEASE_NAME
         
  
     - name: Install dependencies
