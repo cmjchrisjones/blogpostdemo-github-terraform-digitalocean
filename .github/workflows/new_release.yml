@@ -65,6 +65,6 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: DemoRazorApp
-        path: /home/runner/work/${{ env.RELEASE_NAME }}
+        path: ${{ env.RELEASE_NAME }}
 
      
