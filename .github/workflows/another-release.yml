@@ -14,7 +14,7 @@ on:
 env:
   PROJECT_FOLDER: DemoRazorApp
   PROJECT_FILE: DemoRazorApp/src/DemoRazorApp/DemoRazorApp.csproj
-  PROJECT_PREFIX: "Infra with DigitalOcean, Terraform Cloud and GitHub Actions"
+  PROJECT_PREFIX: "InfraWithDigitalOceanTerraformCloudAndGitHubActions"
   DOTNET_SDK_VERSION: "5.0.x"
   FRAMEWORK: net5.0
   CONFIGURATION: Release
