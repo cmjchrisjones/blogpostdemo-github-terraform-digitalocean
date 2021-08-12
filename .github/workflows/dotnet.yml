@@ -1,4 +1,4 @@
-name: .NET
+name: Pull Request - Build & Test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  PR-build-and-test:
 
     runs-on: ubuntu-latest
     

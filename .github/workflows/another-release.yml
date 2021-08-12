@@ -1,0 +1,100 @@
+name: Create Release
+ 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+
+env:
+  PROJECT_FOLDER: DemoRazorApp
+  PROJECT_FILE: DemoRazorApp/DemoRazorApp.csproj
+  PROJECT_PREFIX: "Infra with DigitalOcean, Terraform Cloud and GitHub Actions"
+  DOTNET_SDK_VERSION: "5.0.x"
+  FRAMEWORK: net5.0
+  CONFIGURATION: Release
+
+jobs:
+  build-and-release-2-0:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get version from input
+      id: tag_name
+      shell: bash
+      env:
+        INPUT_VERSION: ${{ github.event.inputs.version }}
+      run: |
+        echo ::set-output name=current_version::${INPUT_VERSION}
+
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
+
+    - name: Verify .NET Core
+      run: dotnet --info
+    
+    - name: Building
+      env:
+        VARIANTS: linux-arm linux-arm64 linux-x64 win-x64 win-x86
+        PUBLISH_VERSION: ${{ steps.tag_name.outputs.current_version }}
+      shell: bash
+      run: |
+        set -eu
+        
+        publish() {
+          echo "Building for runtime ${1}"
+          rm -rf "${PROJECT_FOLDER}/bin"
+          rm -rf "${PROJECT_FOLDER}/obj"
+          dotnet restore "${PROJECT_FILE}" -r "${1}"
+          dotnet publish "${PROJECT_FILE}" -c "${CONFIGURATION}" -f "${FRAMEWORK}" -o "out/${1}" -r "${1}" -p:PublishSingleFile=true -p:PublishTrimmed=true -p:Version="${PUBLISH_VERSION}" --no-restore
+          
+          if command -v 7z >/dev/null; then
+              7z a -bd -slp -tzip -mm=Deflate -mx=1 "out/${PROJECT_PREFIX}-${1}.zip" "${GITHUB_WORKSPACE}/out/${1}/*"
+          elif command -v zip >/dev/null; then
+              (
+                  cd "${GITHUB_WORKSPACE}/out/${1}"
+                  zip -1 -q -r "../${PROJECT_PREFIX}-${1}.zip" .
+              )
+          else
+              echo "ERROR: No supported zip tool!"
+              return 1
+          fi
+        }
+        
+        for variant in $VARIANTS; do
+            publish "$variant"
+        done
+    
+    #- name: Upload Artifact
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    path: "out/${{ env.PROJECT_PREFIX }}-*.zip"
+    
+    - name: Get Changelog Entry
+      id: changelog_reader
+      uses: mindsers/changelog-reader-action@v2
+      with:
+        version: ${{ steps.tag_name.outputs.current_version }}
+        path: ./CHANGELOG.md
+      
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: v${{ steps.changelog_reader.outputs.version }}
+        name: Release ${{ steps.changelog_reader.outputs.version }}
+        body: ${{ steps.changelog_reader.outputs.changes }}
+        draft: ${{ steps.changelog_reader.outputs.status == 'unreleased' }}
+        prerelease: ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
+        files: "out/${{ env.PROJECT_PREFIX }}-*.*"
